@@ -6,7 +6,7 @@
 
 1.  James Caple
 2.  Kamal Dhiman
-1.
+3.  Matt Anderson
 1.
 
 ## Project Goals
