@@ -14,7 +14,7 @@ node {
 
     // Clean previously built images
     try {
-        sh 'docker image rm g28form:latest -f'
+        sh 'docker image rm ${IMAGE_NAME}:latest -f'
     } catch (e) {
         echo 'Error removing previously generated image.  Not a big deal.'
     }
@@ -28,7 +28,7 @@ node {
     stage('Checkout Code') {
         checkout([
             $class: 'GitSCM', 
-            branches: [[name: '*/master']], 
+            branches: [[name: '*/team2']], 
             doGenerateSubmoduleConfigurations: false, 
             extensions: [], 
             submoduleCfg: [], 
@@ -53,11 +53,11 @@ node {
                 docker pull ${PRE_BUILT_BUILD_TEST_IMAGE}
 
                 # Run the pre-buit build image in a container that mounts the source directory
-                docker run -it -d --name="dhsg28-ui-build" \
+                docker run -it -d --name="dhsg28-ui-build2" \
                     -v /var/lib/jenkins/workspace/DHSFormG28-UI/UI:/app ${PRE_BUILT_BUILD_TEST_IMAGE}
 
                 # Run npm install in the docker container
-                docker exec dhsg28-ui-build /bin/bash -c "cd /app;npm install"
+                docker exec dhsg28-ui-build2 /bin/bash -c "cd /app;npm install"
 
             '''
         }
@@ -67,7 +67,7 @@ node {
             echo 'Unit Testing...'
 
             // Run Unit Tests
-            sh 'docker exec dhsg28-ui-build /bin/bash -c "cd /app;npm run coverage"'
+            sh 'docker exec dhsg28-ui-build2 /bin/bash -c "cd /app;npm run coverage"'
 
             // Publish Test Results
             junit keepLongStdio: true, testResults: '**/*-results.xml'
@@ -86,7 +86,7 @@ node {
 
             echo 'E2E Testing...'
 
-            sh 'docker exec dhsg28-ui-build /bin/bash -c "cd /app;npm run e2e"'
+            sh 'docker exec dhsg28-ui-build2 /bin/bash -c "cd /app;npm run e2e"'
         }
 
         stage('OWASP Dependency Security Scan') {
@@ -139,13 +139,13 @@ node {
 
             sh '''
                 # Build UI artifacts
-                docker exec dhsg28-ui-build /bin/bash -c "cd /app;ng build"
+                docker exec dhsg28-ui-build2 /bin/bash -c "cd /app;ng build"
             
                 # Change directory to UI
                 cd /var/lib/jenkins/workspace/DHSFormG28-UI/UI
                 
                 # Build the UI Docker Image
-                docker build -t g28form:latest -f ./docker/container/Dockerfile .
+                docker build -t ${IMAGE_NAME}:latest -f ./docker/container/Dockerfile .
 
             '''
             
@@ -163,7 +163,7 @@ node {
                 sh '''
 
                     # Run our containerized app for pen testing. Run on 8001 since Jenkins is on 80.
-                    docker run --name UI -d -p 8001:80 g28form:latest
+                    docker run --name UI -d -p 8001:80 ${IMAGE_NAME}:latest
 
                     # Get the docker container IP
                     #APP_ID=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' UI`
@@ -215,7 +215,7 @@ node {
                 tag=${MASTER_IMAGE_NAME}:v_${BUILD_NUMBER}
 
                 # Push docker image to ECS Registry
-                docker tag g28form:latest ${tag}
+                docker tag ${IMAGE_NAME}:latest ${tag}
 
                 # Push docker image to ECS Registry
                 docker push ${tag}
@@ -242,7 +242,7 @@ node {
 
         }
     } finally {
-        sh 'docker container stop dhsg28-ui-build'
-        sh 'docker container rm dhsg28-ui-build'
+        sh 'docker container stop dhsg28-ui-build2'
+        sh 'docker container rm dhsg28-ui-build2'
     }
 }
