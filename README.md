@@ -57,3 +57,19 @@ To build a suite of Docker Microservices, and an associated User Interface, for 
 1.  ng build
 1.  docker build -f docker/container/Dockerfile -t g28form:latest .
 1.  docker run -p 8000:80 g28form:latest
+
+# TLS Connection to PostgreSQL RDS
+
+## To connect to PostgreSQL DB over SSL
+
+1. Download the certificate stored at https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem.
+2. Import the certificate into your operating system.
+3. Connect to your PostgreSQL DB instance over SSL by appending sslmode=verify-full to your connection string. When you use     sslmode=verify-full, the SSL connection verifies the DB instance endpoint against the endpoint in the SSL certificate.
+4. Use the sslrootcert parameter to reference the certificate, for example, sslrootcert=rds-ssl-ca-cert.pem.
+5. Example connection string: 
+    $ psql -h testpg.cdhmuqifdpib.us-east-1.rds.amazonaws.com -p 5432 \
+    "dbname=testpg user=testuser sslrootcert=rds-ca-2015-root.pem sslmode=verify-full"
+
+##Require an SSL Connection to PostgreSQL DB
+1. Make it require that connections to PostgreSQL DB instance use SSL by setting the rds.force_ssl parameter to 1 (on). By default, the rds.force_ssl parameter is set to 0 (off).
+2. You can set the rds.force_ssl parameter value by updating the parameter group for your DB instance. If the parameter group for your DB instance isn't the default one, and the ssl parameter is already set to 1 when you set rds.force_ssl to 1, you don't need to reboot your DB instance. Otherwise, you must reboot your DB instance for the change to take effect.
