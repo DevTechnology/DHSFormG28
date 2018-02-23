@@ -26,6 +26,7 @@ function create_account(req, res, next) {
     user.first_name = req.body.first_name;
     user.last_name = req.body.last_name;
     user.email = req.body.email;
+    user.role_name = req.body.role_name;
 
     console.log('User -> ' + JSON.stringify(user));
     console.log('CONFIG VALUES -> ' + JSON.stringify(Config));
