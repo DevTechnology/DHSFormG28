@@ -98,8 +98,8 @@
     <div class="col text-left">
       <span class="label">3.c. City or Town:</span>
     </div>
-    <div class="col-md-8 text-left">
-      <input formControlName="city" type="text" maxlength="40" id="part1_city_town" class="form1-field form-control"
+    <div class="col-md-8 text-left form-group">
+      <input formControlName="city" type="text" maxlength="40" id="part1_city_town" class="form1-field form-control has-error"
         title="Please enter your City or Town Name"/>
       <div class="alert alert-danger"
            *ngIf="attorneyInfoForm.get('city').errors && attorneyInfoForm.get('city').dirty">
