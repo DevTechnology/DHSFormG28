@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class G28FormComponent implements OnInit {
 
+  role_name = '';
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -20,8 +21,15 @@ export class G28FormComponent implements OnInit {
       this.router.navigate(['/']);
     } else {
       const userId = currentUser['id'];
+      this.role_name = currentUser['role_name'];
       console.log('User ' + userId + ' logged in.');
-      document.getElementById('whoami').textContent = 'Welcome, ' + userId;
+
+      if (this.role_name === 'Quality Assurance') {
+        document.getElementById('whoami').textContent = 'Welcome, ' + userId + ' | ' + this.role_name;
+        this.router.navigate(['qa']);
+      } else {
+        document.getElementById('whoami').textContent = 'Welcome, ' + userId + ' | ' + this.role_name;
+      }
     }
   }
 }

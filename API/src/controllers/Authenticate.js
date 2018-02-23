@@ -24,7 +24,7 @@ function authenticate(req, res, next) {
             // Query Role ID
             client.query('select g.user_id, g.role_id, r.role_name from g28formUsers g, g28formroles r where g.user_id = $1 and g.role_id = r.role_id', [user.id], (err, result) => {
                 
-                let role = result.row[0].role_name;
+                let role = result.rows[0].role_name;
 
                 console.log('Role Name: ' + role);
 

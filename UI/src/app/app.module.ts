@@ -22,6 +22,7 @@ import { Part3Component } from './g28-form/part-3/part-3.component';
 import { Part4Component } from './g28-form/part-4/part-4.component';
 import { Part5Component } from './g28-form/part-5/part-5.component';
 import { Part6Component } from './g28-form/part-6/part-6.component';
+import { QaScreenComponent } from './qa-screen/qa-screen.component';
 
 //New imports
 import { FormFieldLOVService } from "./shared/FormFieldLOV.service";
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
   { path: 'form', component: G28FormComponent },
   { path: '', component: LoginFormComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'create-account', component: CreateAccountComponent }
+  { path: 'create-account', component: CreateAccountComponent },
+  { path: 'qa', component: QaScreenComponent }
 ];
 
 @NgModule({
@@ -45,7 +47,9 @@ const appRoutes: Routes = [
     Part3Component,
     Part4Component,
     Part5Component,
-    Part6Component
+    Part6Component,
+    QaScreenComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ui'}),
