@@ -5,7 +5,7 @@
       <span class="label">1.  USCIS ELIS Account Number <em>(if any)</em>:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="number" max="999999999999" maxlength="12" id="part1_elis_number" class="form1-field" 
+      <input type="number" max="999999999999" maxlength="12" id="part1_elis_number" class="form1-field"
         title="Please enter your USCIS ELIS Account Number" required/>
     </div>
   </div>
@@ -96,8 +96,12 @@
       <span class="label">3.d.  State:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part1_state" class="form1-field"
-        title="Please enter your State" required/>
+      <select class="form1-field form-control" name="part1_state"
+              id="part1_state" [ngModel]="state">
+        <option selected disabled value="">Select State...</option>
+        <option *ngFor="let s of lovService.getStateLOVs()"
+                [value]="s">{{s}}</option>
+      </select>
     </div>
   </div>
 
@@ -106,7 +110,7 @@
       <span class="label">3.e.  Zip Code:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part1_zip" class="form1-field" 
+      <input type="text" maxlength="40" id="part1_zip" class="form1-field"
         title="Please enter your Zip Code" required/>
     </div>
   </div>
@@ -136,7 +140,7 @@
       <span class="label">3.h. Country:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part1_country" class="form1-field" 
+      <input type="text" maxlength="40" id="part1_country" class="form1-field"
         title="Please enter your Country" required/>
     </div>
   </div>
@@ -183,7 +187,7 @@
 
   <div class="row form-row">
     <div class="col-md-12 text-center">
-      <button class="btn btn-large btn-primary saveBtn text-center" id="part_1" 
+      <button class="btn btn-large btn-primary saveBtn text-center" id="part_1"
         title="Click to save Part One of this form">
         Save Part 1 of Form
       </button>
