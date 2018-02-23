@@ -19,6 +19,7 @@ export class CreateAccountComponent implements OnInit {
   password2 = '';
   adhoc_passwords = '';
   createAccountForm: FormControl;
+  roles = [];
 
   constructor(private router: Router, private accountService: CreateAccountService, private rolesService: GetrolesService ) { }
 
@@ -35,6 +36,13 @@ export class CreateAccountComponent implements OnInit {
           } else {
             // TODO: Make nice dialog for success
             console.log('ROLES -> ' + JSON.stringify(res));
+
+            const rls = res['roles'];
+            console.log('Roles Length: ' + rls.length);
+            for (let i = 0; i < rls.length; i++) {
+              console.log('Role_Name: ' + rls[i]['role_name']);
+              this.roles.push(rls[i]['role_name']);
+            }
           }
         } catch (e) {
           alert('An Unexpected Exception Occurred!');
