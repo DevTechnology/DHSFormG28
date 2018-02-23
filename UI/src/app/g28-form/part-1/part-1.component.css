@@ -9,9 +9,15 @@
 }
 
 .form1-field {
-    text-align: left;
-    display: block;
-    width: 100%;
-    min-height: 28px;
-    min-width: 100%!important;
+  text-align: left;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  min-width: 100% !important;
 }
+
+input:required:invalid, input:focus:invalid {
+  /* insert your own styles for invalid form input */
+  -moz-box-shadow: none;
+}
+

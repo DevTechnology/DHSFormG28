@@ -1,12 +1,15 @@
 
 <div class="container-fluid border">
+  <!-- TODO: form here. -->
+  <form [formGroup]="attorneyInfoForm" novalidate>
+
   <div class="row form-row">
     <div class="col-md-4 text-left">
       <span class="label">1.  USCIS ELIS Account Number <em>(if any)</em>:</span>
     </div>
     <div class="col-md-8 text-left">
       <input type="number" max="999999999999" maxlength="12" id="part1_elis_number" class="form1-field"
-        title="Please enter your USCIS ELIS Account Number" required/>
+        title="Please enter your USCIS ELIS Account Number"/>
     </div>
   </div>
 
@@ -21,9 +24,13 @@
     <div class="col text-left">
       <span class="label">2.a.  Family Name <em>(Last Name)</em>:</span>
     </div>
-    <div class="col-md-8 text-left">
-      <input type="text" maxlength="80" id="part1_last_name" class="form1-field"
-        title="Please enter your Family Name (Last Name)" required/>
+    <div class="col-md-8 text-left form-group">
+      <input formControlName="lastName" type="text" name="lastName" maxlength="80" id="part1_last_name" class="form1-field form-control"
+        title="Please enter your Family Name (Last Name)"/>
+      <!-- last name errors -->
+      <div *ngIf="attorneyInfoForm.get('lastName').errors && attorneyInfoForm.get('lastName').dirty" class="alert alert-danger">
+        Last Name is required.
+      </div>
     </div>
   </div>
 
@@ -31,9 +38,12 @@
     <div class="col text-left">
       <span class="label">2.b.  Given Name <em>(First Name)</em>:</span>
     </div>
-    <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part1_first_name" class="form1-field"
-        title="Please enter your Given Name (First Name)" required/>
+    <div class="col-md-8 text-left form-group has-error">
+      <input formControlName="firstName" type="text" maxlength="40" id="part1_first_name" class="form1-field form-control"
+        title="Please enter your Given Name (First Name)"/>
+      <div *ngIf="attorneyInfoForm.get('firstName').errors && attorneyInfoForm.get('firstName').dirty" class="alert alert-danger">
+        First Name is required.
+      </div>
     </div>
   </div>
 
@@ -43,7 +53,7 @@
     </div>
     <div class="col-md-8 text-left">
       <input type="text" maxlength="40" id="part1_middle_name" class="form1-field"
-        title="Please enter your Middle Name" required/>
+        title="Please enter your Middle Name"/>
     </div>
   </div>
 
@@ -52,8 +62,11 @@
       <span class="label">3.a.  Street Number and Name:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part1_street_number_name" class="form1-field"
-        title="Please enter your Street Number and Street Name" required/>
+      <input formControlName="streetNumber" type="text" maxlength="40" id="part1_street_number_name" class="form1-field form-control"
+        title="Please enter your Street Number and Street Name"/>
+      <div *ngIf="attorneyInfoForm.get('streetNumber').errors && attorneyInfoForm.get('streetNumber').dirty" class="alert alert-danger">
+        Street Number and Name is required.
+      </div>
     </div>
   </div>
 
@@ -86,8 +99,12 @@
       <span class="label">3.c. City or Town:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part1_city_town" class="form1-field"
-        title="Please enter your City or Town Name" required/>
+      <input formControlName="city" type="text" maxlength="40" id="part1_city_town" class="form1-field form-control"
+        title="Please enter your City or Town Name"/>
+      <div class="alert alert-danger"
+           *ngIf="attorneyInfoForm.get('city').errors && attorneyInfoForm.get('city').dirty">
+        City or Town Name is required.
+      </div>
     </div>
   </div>
 
@@ -97,7 +114,7 @@
     </div>
     <div class="col-md-8 text-left">
       <select class="form1-field form-control" name="part1_state"
-              id="part1_state" [ngModel]="state">
+              id="part1_state">
         <option selected disabled value="">Select State...</option>
         <option *ngFor="let s of lovService.getStateLOVs()"
                 [value]="s">{{s}}</option>
@@ -110,8 +127,11 @@
       <span class="label">3.e.  Zip Code:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part1_zip" class="form1-field"
-        title="Please enter your Zip Code" required/>
+      <input formControlName="zip" type="text" maxlength="40" id="part1_zip" class="form1-field form-control"
+        title="Please enter your Zip Code"/>
+      <div
+        *ngIf="attorneyInfoForm.get('zip').errors && attorneyInfoForm.get('zip').dirty"
+        class="alert alert-danger">Zip Code is required.</div>
     </div>
   </div>
 
@@ -121,7 +141,7 @@
     </div>
     <div class="col-md-8 text-left">
       <input type="text" maxlength="40" id="part1_province" class="form1-field"
-        title="Please enter your Province" required/>
+        title="Please enter your Province" />
     </div>
   </div>
 
@@ -131,7 +151,7 @@
     </div>
     <div class="col-md-8 text-left">
       <input type="text" maxlength="40" id="part1_postal_code" class="form1-field"
-        title="Please enter your Postal Code" required/>
+        title="Please enter your Postal Code" />
     </div>
   </div>
 
@@ -141,7 +161,7 @@
     </div>
     <div class="col-md-8 text-left">
       <input type="text" maxlength="40" id="part1_country" class="form1-field"
-        title="Please enter your Country" required/>
+        title="Please enter your Country" />
     </div>
   </div>
 
@@ -171,7 +191,7 @@
     </div>
     <div class="col-md-8 text-left">
       <input type="email" maxlength="40" id="part1_email" class="form1-field"
-        title="Please enter your E-Mail Address" required/>
+        title="Please enter your E-Mail Address" />
     </div>
   </div>
 
@@ -181,7 +201,7 @@
     </div>
     <div class="col-md-8 text-left">
       <input type="tel" maxlength="40" id="part1_mobile_number" class="form1-field"
-        title="Please enter your Mobile Telephone Number" required/>
+        title="Please enter your Mobile Telephone Number" />
     </div>
   </div>
 
@@ -193,4 +213,5 @@
       </button>
     </div>
   </div>
+  </form>
 </div>
