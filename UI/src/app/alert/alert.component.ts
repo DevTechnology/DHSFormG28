@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component,  OnInit, ViewChild} from '@angular/core';
 import {ALERT_TYPE, AlertService} from "../shared/alert.service";
 import {ALERT_TYPES} from "../shared/AlertTypes";
 
@@ -11,8 +11,10 @@ declare var $: any;
 export class AlertComponent implements OnInit {
   @ViewChild('modalContainer') modalContainer;
   currType: ALERT_TYPE;
+  mBody: string;
+  mHeader: string;
 
-  constructor(private as: AlertService, private el: ElementRef) {}
+  constructor(private as: AlertService) {}
 
   ngOnInit() {
     this.as.register(this);
@@ -24,6 +26,8 @@ export class AlertComponent implements OnInit {
   }
 
   public open(header: string, body: string, type: ALERT_TYPE, duration: number = 2000) {
+    this.mHeader = header;
+    this.mBody = body;
     this.currType = type;
     $(this.modalContainer.nativeElement).modal();
     window.setTimeout( () => {

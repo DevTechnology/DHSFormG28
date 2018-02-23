@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { CreateAccountService } from '../create-account.service';
 import { GetrolesService } from '../getroles.service';
 import { User } from '../user';
+import {AlertService} from "../shared/alert.service";
 
 @Component({
   selector: 'app-create-account',
@@ -21,7 +22,7 @@ export class CreateAccountComponent implements OnInit {
   createAccountForm: FormControl;
   roles = [];
 
-  constructor(private router: Router, private accountService: CreateAccountService, private rolesService: GetrolesService ) { }
+  constructor(private router: Router, private accountService: CreateAccountService, private rolesService: GetrolesService, private as: AlertService ) { }
 
   ngOnInit() {
     document.getElementById('whoami').textContent = 'CREATE NEW ACCOUNT';
@@ -83,7 +84,7 @@ export class CreateAccountComponent implements OnInit {
             alert('Unexpected Error.  Failed to Create Account.');
           } else {
             // TODO: Make nice dialog for success
-            alert('Account Creation Successful');
+            this.as.open("Success", "Account Created. You may now log in.");
             this.router.navigate(['/']);
           }
         } catch (e) {

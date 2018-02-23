@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
   import { Router } from '@angular/router';
+import {AlertService} from "../shared/alert.service";
 
 @Component({
   selector: 'app-g28-form',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class G28FormComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private as: AlertService) { }
 
   ngOnInit() {
     this.checkIfUserAuthenticated();
@@ -23,5 +24,8 @@ export class G28FormComponent implements OnInit {
       console.log('User ' + userId + ' logged in.');
       document.getElementById('whoami').textContent = 'Welcome, ' + userId;
     }
+  }
+  notifySaved() {
+    this.as.open("","Form Has Been Submitted");
   }
 }
