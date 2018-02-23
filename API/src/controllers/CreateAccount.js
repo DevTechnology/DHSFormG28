@@ -20,12 +20,16 @@ const SALT = 10;
  * @param {*} next 
  */
 function create_account(req, res, next) {
+
+    console.log("req.body: " + JSON.stringify(req.body));
+
     let user = User;
 	user.id = req.body.id;
     user.password = req.body.password;
     user.first_name = req.body.first_name;
     user.last_name = req.body.last_name;
     user.email = req.body.email;
+    user.rold_id = req.body.role.role_id;
 
     console.log('User -> ' + JSON.stringify(user));
     console.log('CONFIG VALUES -> ' + JSON.stringify(Config));
@@ -46,18 +50,38 @@ function create_account(req, res, next) {
             }
 
             // Insert User Account Data
-            client.query('INSERT INTO g28formusers(user_id, password_hash, first_name, last_name, email_address, salt, role_id) values($1, $2, $3, $4, $5, $6, $7)',
-                [user.id, password_hash, user.first_name, user.last_name, user.email, SALT, 2], (err, result) => {
+            client.query('select user_id from g28formusers ' +
+                'where user_id = $1 or email_address = $2',
+                [user.id, user.email], (err, result) => {
+                    if (err) {
+                        console.log(JSON.stringify(err));
+                        res.status(500).json({success: false, message: JSON.stringify(err)});
+                    } else {
+                        console.log("***" + JSON.stringify(result));
 
-                done();
+                        if(result && result['rowCount'] > 0) {
+                            res.status(507).json({success: false, message: "Account already exists."});
+                        } else {
+                            // Insert User Account Data
+                            client.query('INSERT INTO g28formusers(user_id, password_hash, first_name, last_name, email_address, salt, role_id) values($1, $2, $3, $4, $5, $6, $7)',
+                                [user.id, password_hash, user.first_name, user.last_name, user.email, SALT, user.rold_id], (err, result) => {
 
-                if (err) {
-                    res.status(500).json({success: false, message: JSON.stringify(err)});
-                } else {
-                    console.log('Successfully Created Account!');
-                    res.status(200).json({ success: true, user_id: user.id, message: 'Account Created' });
-                } 
-            });
+                                    done();
+
+                                    if (err) {
+                                        res.status(500).json({success: false, message: JSON.stringify(err)});
+                                    } else {
+                                        console.log('Successfully Created Account!');
+                                        res.status(200).json({
+                                            success: true,
+                                            user_id: user.id,
+                                            message: 'Account Created'
+                                        });
+                                    }
+                                });
+                        }
+                    }
+                });
         });
     } catch(e) {
         console.log('Unexpected Error: ' + JSON.stringify(e));

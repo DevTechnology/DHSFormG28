@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { CreateAccountService } from '../create-account.service';
 import { User } from '../user';
+import { Role } from '../role';
 
 @Component({
   selector: 'app-create-account',
@@ -12,8 +13,10 @@ import { User } from '../user';
 })
 export class CreateAccountComponent implements OnInit {
 
+  private roles: Role[];
+
   public loading = false;
-  user = new User('', '', '', '', '', '', false, '');
+  user = new User('', '', '', '', '', null, false, '');
   password1 = '';
   password2 = '';
   adhoc_passwords = '';
@@ -23,10 +26,39 @@ export class CreateAccountComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('whoami').textContent = 'CREATE NEW ACCOUNT';
+
+    this.getAllRoles();
   }
 
   cancel() {
     this.router.navigate(['/']);
+  }
+
+  getAllRoles() {
+    console.log('login form component : getting all roles');
+    this.loading = true;
+    this.accountService.getAllRoles().subscribe(
+      res => {
+        this.loading = false;
+        console.log(res);
+        try {
+          if (!res['success']) {
+            this.roles = res['rows'] as Role[];
+            console.log(this.roles);
+          } else {
+            // TODO: Make nice dialog for success
+            alert('Account Creation Successful');
+          }
+        } catch (e) {
+          alert('An Unexpected Exception Occurred!');
+        }
+      },
+      err => {
+        console.log('Error occured');
+        alert('An Unexpected Exception Occurred!');
+        this.loading = false;
+      }
+    );
   }
 
   createNewAccount() {
@@ -46,11 +78,17 @@ export class CreateAccountComponent implements OnInit {
     this.accountService.createUserAccount(this.user).subscribe(
       res => {
         this.loading = false;
-        console.log(res);
+        console.log("&&&&&" + res);
         try {
           if (!res['success']) {
             // TODO: Make a nicer alert dialog box
-            alert('Unexpected Error.  Failed to Create Account.');
+            let errmsg = 'Unexpected Error.  Failed to Create Account.';
+
+            if (res['status'] === 507) {
+              errmsg += 'The account already exists. Either user id or email is already been used.';
+            }
+
+            alert(errmsg);
           } else {
             // TODO: Make nice dialog for success
             alert('Account Creation Successful');
@@ -61,8 +99,14 @@ export class CreateAccountComponent implements OnInit {
         }
       },
       err => {
-        console.log('Error occured');
-        alert('An Unexpected Exception Occurred!');
+        console.log(err);
+        let errmsg = 'An Unexpected Exception Occurred!';
+
+        if (err['status'] === 507) {
+          errmsg += 'The account already exists. Either user id or email is already been used.';
+        }
+
+        alert(errmsg);
         this.loading = false;
       }
     );

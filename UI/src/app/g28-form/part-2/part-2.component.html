@@ -1,5 +1,5 @@
 <div class="container-fluid border">
-
+<form #formPart2="ngForm">
   <div class="row">
       <div class="text-left col">
         This appearance relates to immigration matters before <em>(Select <b>only one</b> box):</em>
@@ -112,8 +112,8 @@
       <span class="label">5.a.  Family Name<em>(Last Name)</em>:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="80" id="part2_last_name" class="form2-field"
-        title="Please enter your Family Name (Last Name)"/>
+      <input type="text" maxlength="80" id="part2_last_name" class="form2-field" [(ngModel)]="lastName" name="part2_last_name" #part2_last_name="ngModel"
+        title="Please enter your Family Name (Last Name)" required/>
     </div>
   </div>
 
@@ -122,8 +122,8 @@
       <span class="label">5.b.  Given Name <em>(First Name)</em>:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part2_first_name" class="form2-field"
-        title="Please enter your Given Name (First Name)"/>
+      <input type="text" maxlength="40" id="part2_first_name" class="form2-field" [(ngModel)]="firstName" name="part2_first_name" #part2_first_name="ngModel"
+        title="Please enter your Given Name (First Name)" required/>
     </div>
   </div>
 
@@ -215,8 +215,8 @@
       <span class="label">12.a.  Street Number and Name:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part2_number_name" class="form2-field"
-        title="Street Number and Name"/>
+      <input type="text" maxlength="40" id="part2_number_name" class="form2-field" [(ngModel)]="stNumberName" name="part2_number_name" #part2_number_name="ngModel"
+        title="Street Number and Name" required/>
     </div>
   </div>
 
@@ -253,18 +253,21 @@
       <span class="label">12.c.  City or Town:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part2_city_town" class="form2-field"
+      <input type="text" maxlength="40" id="part2_city_town" class="form2-field" [(ngModel)]="cityTown" name="part2_city_town" #part2_city_town="ngModel"
         title="City or Town"/>
     </div>
   </div> 
 
   <div class="row form-row text-left">
-    <div class="col text-left">
+    <div class="col-md-4 text-left">
       <span class="label">12.d.  State:</span>
     </div>
-    <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part2_state" class="form2-field"
-        title="State"/>
+    <div class="col-md-2 text-left">
+  		<select title="State" id="part2_state" class="form2-field" [(ngModel)]="states" name="part2_state" #part2_state="ngModel" required>
+			<option *ngFor="let state of states">
+				{{state}}
+			</option>
+		</select>
     </div>
   </div>
   
@@ -273,8 +276,8 @@
       <span class="label">12.e.  Zip:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part2_zip" class="form2-field"
-        title="Zip"/>
+      <input type="text" maxlength="40" id="part2_zip" class="form2-field" [(ngModel)]="zip" name="part2_zip" #part2_zip="ngModel"
+        title="Zip" required/>
     </div>
   </div> 
 
@@ -310,11 +313,11 @@
 
   <div class="row form-row">
     <div class="col-md-12 text-center">
-      <button class="btn btn-large btn-primary saveBtn text-center" id="btn_part_2" 
-        title="Click to save Part Two of this form">
+      <button class="btn btn-large btn-primary saveBtn text-center" id="btn_part_2" (click)="savePart2()"
+        title="Click to save Part Two of this form" [disabled]="formPart2.form.invalid">
         Save Part 2 of Form
       </button>
     </div>
   </div>
-  
+  </form>
 </div>

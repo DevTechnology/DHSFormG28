@@ -19,7 +19,7 @@ export class LoginFormComponent implements OnInit {
   public loading = false;
   loginForm: FormGroup;
   environment = '';
-  user = new User('', '', '', '', '', '', false, '');
+  user = new User('', '', '', '', '', null, false, '');
 
   ngOnInit() {
     document.getElementById('whoami').textContent = 'LOGIN';

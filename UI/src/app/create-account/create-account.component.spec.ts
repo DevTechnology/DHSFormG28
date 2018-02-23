@@ -1,7 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { CreateAccountComponent } from './create-account.component';
+import {By} from '@angular/platform-browser';
 
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
@@ -21,7 +22,14 @@ describe('CreateAccountComponent', () => {
     fixture.detectChanges();
   });
 
-  //it('should create', () => {
-  //  expect(component).toBeTruthy();
-  //});
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  // it('roles are populated in the dropdown', fakeAsync(() => {
+  //   fixture.detectChanges();
+  //   const toggleButton = fixture.debugElement.queryAll(By.css('[dropdownToggle]'));
+  //   const list = fixture.debugElement.queryAll(By.css('ul.btnOptionBox'));
+  //   console.log(list[0]);
+  // }));
 });

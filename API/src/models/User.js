@@ -6,7 +6,8 @@ const user = {
     authenticated : false,
     jwt : "",
     first_name: "",
-    last_name: ""
+    last_name: "",
+    role_id: ""
 };
 
 module.exports = user;

@@ -79,5 +79,6 @@ app.use(bodyParser.urlencoded({
 
 app.get('/', (req, res) => res.send(JSON.stringify(CONFIG)));
 app.use('/user', routes);
+app.use('/api', routes);
 
 app.listen(3000, () => console.log('Configuration Server listening on port 3000!'))
