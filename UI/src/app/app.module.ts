@@ -25,6 +25,8 @@ import { Part6Component } from './g28-form/part-6/part-6.component';
 
 //New imports
 import { FormFieldLOVService } from "./shared/FormFieldLOV.service";
+import { AlertService } from "./shared/alert.service";
+import { AlertComponent} from "./alert/alert.component";
 
 const appRoutes: Routes = [
   { path: 'form', component: G28FormComponent },
@@ -45,7 +47,8 @@ const appRoutes: Routes = [
     Part3Component,
     Part4Component,
     Part5Component,
-    Part6Component
+    Part6Component,
+    AlertComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ui'}),
@@ -65,7 +68,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [AuthenticateService, ConfigService, CreateAccountService, FormFieldLOVService, GetrolesService],
+  providers: [AuthenticateService, ConfigService, CreateAccountService, FormFieldLOVService, GetrolesService, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
