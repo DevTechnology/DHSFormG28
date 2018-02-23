@@ -60,7 +60,7 @@ To build a suite of Docker Microservices, and an associated User Interface, for 
 
 # TLS Connection to PostgreSQL RDS
 
-## To connect to PostgreSQL DB over SSL
+## To connect to PostgreSQL DB over SSL from Application
 
 1. Download the certificate stored at https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem.
 2. Import the certificate into your operating system.
@@ -69,6 +69,18 @@ To build a suite of Docker Microservices, and an associated User Interface, for 
 5. Example connection string: 
     $ psql -h testpg.cdhmuqifdpib.us-east-1.rds.amazonaws.com -p 5432 \
     "dbname=testpg user=testuser sslrootcert=rds-ca-2015-root.pem sslmode=verify-full"
+
+## To connect to PostgreSQL DB over SSL from a DB Client (e.g. DBeaver)
+1. Download the certificate stored at https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem.
+2. Import the certificate into your operating system.
+Open DBeaver and connect to your database.
+3. Under Database Navigator, right click your connection name and click Edit Connection.
+4. On the settings dialog, under Connection Settings choose Network.
+5. Select SSL tab.
+6. Check the checkbox 'Use SSL'.
+7. Under Certificates, select Root Certificate, SSL Certificate and enter SSL Certificate Key.
+8. Press OK.
+9. Right click your connection again and select Reconnect.
 
 ##Require an SSL Connection to PostgreSQL DB
 1. Make it require that connections to PostgreSQL DB instance use SSL by setting the rds.force_ssl parameter to 1 (on). By default, the rds.force_ssl parameter is set to 0 (off).
