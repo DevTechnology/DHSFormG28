@@ -152,10 +152,10 @@
       <span class="label">7.  USCIS ELIS Account Number <em>(if any)</em>:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="number" max="999999999999" maxlength="12" id="part2_elis_number" class="form2-field" 
+      <input type="number" max="999999999999" maxlength="12" id="part2_elis_number" class="form2-field"
         title="Please enter your USCIS ELIS Account Number" />
     </div>
-  </div>  
+  </div>
 
   <div class="row form-row text-left">
     <div class="col text-left">
@@ -206,7 +206,7 @@
 
   <div class="row form-row text-left sectionTitle">
     NOTE: Provide the mailing address of the applicant, petitioner, requestor, or respondent.
-    Do not provide the business mailing address of the attorney or accredited representative unless it 
+    Do not provide the business mailing address of the attorney or accredited representative unless it
     serves as the safe mailing address on the application, petition or request being filed with this Form G-28.
   </div>
 
@@ -256,18 +256,22 @@
       <input type="text" maxlength="40" id="part2_city_town" class="form2-field"
         title="City or Town"/>
     </div>
-  </div> 
+  </div>
 
   <div class="row form-row text-left">
     <div class="col text-left">
       <span class="label">12.d.  State:</span>
     </div>
     <div class="col-md-8 text-left">
-      <input type="text" maxlength="40" id="part2_state" class="form2-field"
-        title="State"/>
+      <select class="form2-field form-control" name="part2_state"
+              id="part2_state" [ngModel]="state">
+        <option selected disabled value="">Select State...</option>
+        <option *ngFor="let s of lovService.getStateLOVs()"
+                [value]="s">{{s}}</option>
+      </select>
     </div>
   </div>
-  
+
   <div class="row form-row text-left">
     <div class="col text-left">
       <span class="label">12.e.  Zip:</span>
@@ -276,7 +280,7 @@
       <input type="text" maxlength="40" id="part2_zip" class="form2-field"
         title="Zip"/>
     </div>
-  </div> 
+  </div>
 
   <div class="row form-row text-left">
     <div class="col text-left">
@@ -310,11 +314,11 @@
 
   <div class="row form-row">
     <div class="col-md-12 text-center">
-      <button class="btn btn-large btn-primary saveBtn text-center" id="btn_part_2" 
+      <button class="btn btn-large btn-primary saveBtn text-center" id="btn_part_2"
         title="Click to save Part Two of this form">
         Save Part 2 of Form
       </button>
     </div>
   </div>
-  
+
 </div>
