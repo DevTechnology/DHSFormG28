@@ -28,11 +28,14 @@ CREATE TABLE g28formRoles (
     UNIQUE(role_id)
 );
 
-insert into g28formroles (role_name, role_description) 
-    values ('USER', 'Regular user who needs ability to submit G28 Form data');
-insert into g28formroles (role_name, role_description, admin_role_secret) 
-    values ('ADMIN', 'Administrative Role for the G28 system', 'xxxxx');
+INSERT INTO "public".g28formroles
+(role_id, role_name, role_description, admin_role_secret, create_date, update_date)
+VALUES(1, 'Applicant', 'Regular user who needs ability to submit G28 Form data', NULL, '2018-02-19 21:36:46.115', '2018-02-19 21:36:46.115');
+INSERT INTO "public".g28formroles
+(role_id, role_name, role_description, admin_role_secret, create_date, update_date)
+VALUES(2, 'Representative', 'Administrative Role for the G28 system', NULL, '2018-02-19 21:36:46.115', '2018-02-19 21:36:46.115');
+INSERT INTO "public".g28formroles
+(role_id, role_name, role_description, admin_role_secret, create_date, update_date)
+VALUES(3, 'Quality Assurance', 'People who QA the submitted forms', NULL, '2018-02-23 10:24:53.074', '2018-02-23 10:24:53.074');
 
-select *
-from g28formroles;
 

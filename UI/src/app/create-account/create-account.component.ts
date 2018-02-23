@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { CreateAccountService } from '../create-account.service';
+import { GetrolesService } from '../getroles.service';
 import { User } from '../user';
 
 @Component({
@@ -18,11 +19,40 @@ export class CreateAccountComponent implements OnInit {
   password2 = '';
   adhoc_passwords = '';
   createAccountForm: FormControl;
+  roles = [];
 
-  constructor(private router: Router, private accountService: CreateAccountService ) { }
+  constructor(private router: Router, private accountService: CreateAccountService, private rolesService: GetrolesService ) { }
 
   ngOnInit() {
     document.getElementById('whoami').textContent = 'CREATE NEW ACCOUNT';
+    const req = this.rolesService.getRoles();
+    req.subscribe(
+      res => {
+        console.log(res);
+        try {
+          if (!res['success']) {
+            // TODO: Make a nicer alert dialog box
+            alert('Unexpected Error.  Failed to retrieve Roles.');
+          } else {
+            // TODO: Make nice dialog for success
+            console.log('ROLES -> ' + JSON.stringify(res));
+
+            const rls = res['roles'];
+            console.log('Roles Length: ' + rls.length);
+            for (let i = 0; i < rls.length; i++) {
+              console.log('Role_Name: ' + rls[i]['role_name']);
+              this.roles.push(rls[i]['role_name']);
+            }
+          }
+        } catch (e) {
+          alert('An Unexpected Exception Occurred!');
+        }
+      },
+      err => {
+        console.log('Error occured');
+        alert('An Unexpected Exception Occurred!  Problem loading Roles.');
+      }
+    );
   }
 
   cancel() {
