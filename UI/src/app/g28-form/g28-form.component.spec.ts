@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { G28FormComponent } from './g28-form.component';
 
@@ -15,7 +16,8 @@ describe('G28FormComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ G28FormComponent ],
-      providers: [  { provide: Router, useValue: RouterStub } ]
+      providers: [  { provide: Router, useValue: RouterStub } ],
+      imports: [FormsModule, ReactiveFormsModule]
     });
 
     fixture = TestBed.createComponent(G28FormComponent);

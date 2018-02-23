@@ -23,6 +23,9 @@ import { Part4Component } from './g28-form/part-4/part-4.component';
 import { Part5Component } from './g28-form/part-5/part-5.component';
 import { Part6Component } from './g28-form/part-6/part-6.component';
 
+//New imports
+import { FormFieldLOVService } from "./shared/FormFieldLOV.service";
+
 const appRoutes: Routes = [
   { path: 'form', component: G28FormComponent },
   { path: '', component: LoginFormComponent },
@@ -62,7 +65,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [AuthenticateService, ConfigService, CreateAccountService, GetrolesService],
+  providers: [AuthenticateService, ConfigService, CreateAccountService, FormFieldLOVService, GetrolesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
