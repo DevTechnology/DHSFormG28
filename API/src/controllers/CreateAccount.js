@@ -46,18 +46,23 @@ function create_account(req, res, next) {
                 return res.status(500).json({success: false, data: err});
             }
 
-            // Insert User Account Data
-            client.query('INSERT INTO g28formusers(user_id, password_hash, first_name, last_name, email_address, salt, role_id) values($1, $2, $3, $4, $5, $6, $7)',
-                [user.id, password_hash, user.first_name, user.last_name, user.email, SALT, 2], (err, result) => {
+            // Query Role ID
+            client.query('SELECT role_id from g28formroles where role_name = $1', [user.role_name], (err, result) => {
+                console.log('Role ID for ' + user.role_name + ' is ' + result.rows[0].role_id);
 
-                done();
+                // Insert User Account Data
+                client.query('INSERT INTO g28formusers(user_id, password_hash, first_name, last_name, email_address, salt, role_id) values($1, $2, $3, $4, $5, $6, $7)',
+                [user.id, password_hash, user.first_name, user.last_name, user.email, SALT, result.rows[0].role_id], (err, result) => {
 
-                if (err) {
-                    res.status(500).json({success: false, message: JSON.stringify(err)});
-                } else {
-                    console.log('Successfully Created Account!');
-                    res.status(200).json({ success: true, user_id: user.id, message: 'Account Created' });
-                } 
+                    done();
+
+                    if (err) {
+                        res.status(500).json({success: false, message: JSON.stringify(err)});
+                    } else {
+                        console.log('Successfully Created Account!');
+                        res.status(200).json({ success: true, user_id: user.id, message: 'Account Created' });
+                    } 
+                });
             });
         });
     } catch(e) {
