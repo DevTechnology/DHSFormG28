@@ -13,6 +13,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { AuthenticateService } from './authenticate.service';
 import { CreateAccountService } from './create-account.service';
+import { GetrolesService } from './getroles.service';
 import { ConfigService } from './config.service';
 import { G28FormComponent } from './g28-form/g28-form.component';
 import { Part1Component } from './g28-form/part-1/part-1.component';
@@ -61,7 +62,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [AuthenticateService, ConfigService, CreateAccountService],
+  providers: [AuthenticateService, ConfigService, CreateAccountService, GetrolesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
