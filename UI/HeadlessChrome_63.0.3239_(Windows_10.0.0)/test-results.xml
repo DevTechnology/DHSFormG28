@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<testsuite name="HeadlessChrome 63.0.3239 (Windows 10.0.0)" package="UI-Unit-Tests" timestamp="2018-02-23T17:50:40" id="0" hostname="DTG126" tests="10" errors="0" failures="0" time="0.319">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/63.0.3239.132 Safari/537.36"/>
+  </properties>
+  <testcase name="Part3Component should create" time="0.112" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.Part3Component"/>
+  <testcase name="Part4Component should create" time="0.036" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.Part4Component"/>
+  <testcase name="Part5Component should create" time="0.029" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.Part5Component"/>
+  <testcase name="Part6Component should create" time="0.015" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.Part6Component"/>
+  <testcase name="LogoutComponent should create" time="0.011" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.LogoutComponent"/>
+  <testcase name="AppComponent should create the app" time="0.069" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.AppComponent"/>
+  <testcase name="AppComponent should have as title 'app'" time="0.024" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.AppComponent"/>
+  <testcase name="AuthenticateService should be created" time="0.007" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.AuthenticateService"/>
+  <testcase name="ConfigService should be created" time="0.008" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.ConfigService"/>
+  <testcase name="CreateAccountService should be created" time="0.008" classname="HeadlessChrome_63_0_3239_(Windows_10_0_0).UI-Unit-Tests.CreateAccountService"/>
+  <system-out>
+    <![CDATA[HeadlessChrome 63.0.3239 (Windows 10.0.0) LOG: 'Logging the user out!'
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

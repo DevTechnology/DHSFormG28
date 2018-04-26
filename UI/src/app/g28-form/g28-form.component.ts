@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
   import { Router } from '@angular/router';
+import {AlertService} from "../shared/alert.service";
 
 @Component({
   selector: 'app-g28-form',
@@ -8,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class G28FormComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private as: AlertService) { }
+  role_name = '';
 
   ngOnInit() {
     this.checkIfUserAuthenticated();
@@ -20,8 +22,18 @@ export class G28FormComponent implements OnInit {
       this.router.navigate(['/']);
     } else {
       const userId = currentUser['id'];
+      this.role_name = currentUser['role_name'];
       console.log('User ' + userId + ' logged in.');
-      document.getElementById('whoami').textContent = 'Welcome, ' + userId;
+
+      if (this.role_name === 'Quality Assurance') {
+        document.getElementById('whoami').textContent = 'Welcome, ' + userId + ' | ' + this.role_name;
+        this.router.navigate(['qa']);
+      } else {
+        document.getElementById('whoami').textContent = 'Welcome, ' + userId + ' | ' + this.role_name;
+      }
     }
+  }
+  notifySaved() {
+    this.as.open("","Form Has Been Submitted");
   }
 }

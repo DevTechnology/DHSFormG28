@@ -19,7 +19,8 @@ export class CreateAccountService {
       first_name: user.first_name,
       last_name: user.last_name,
       password: user.password,
-      email: user.email
+      email: user.email,
+      role_name: user.role_name
     });
 
     return req;
